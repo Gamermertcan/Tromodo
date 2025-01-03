@@ -8,7 +8,7 @@ function search(query, amount) {
   fetch(url)
     .then(response => {
       if (!response.ok) {
-        throw new Error(`HTTP hata durumu: ${response.status}`);
+        throw new Error(`HTTP Error State: ${response.status}`);
       }
       return response.json();
     })
@@ -16,11 +16,11 @@ function search(query, amount) {
       data.items.forEach(item => {
         const videoId = item.id.videoId;
         if (videoId) {
-          console.log(`Başlık: ${item.snippet.title}`);
-          console.log(`Kanal: ${item.snippet.channelTitle}`);
-          console.log(`URL: https://www.youtube.com/watch?v=${videoId}`);
+          return { "URL": `https://www.youtube.com/watch?v=${videoId}`, "channel": item.snippet.channelTitle, "title": item.snippet.title};
+        } else {
+          console.error("Video ID Not Found");
         }
       });
     })
-    .catch(error => console.error("Hata:", error));
+    .catch(error => console.error("Error:", error));
 }
