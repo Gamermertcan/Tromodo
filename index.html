@@ -7,17 +7,47 @@
     <title>Tromodo</title>
 
     <style>
+        body {
+            background-color: #222;
+        }
         .from-logo {
             max-width: 50px; max-height: 50px;
+        }
+        .box {
+            width: 500px; height: 200px;
+            background-color: #333;
+            border: 5px solid #111;
+            padding: 10px;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <img class="from-logo" src="YT.png">
-
     <script src="index.js"></script>
     <script>
-        // for later
+        async function displayVideos() {
+            const videos = await search("SMG4", 5);
+            videos.forEach(video => {
+                const box = document.createElement("div");
+                box.classList.add("box");
+
+                const link = document.createElement("a");
+                link.href = video.URL;
+                link.target = "_blank";
+                link.textContent = video.title;
+
+                const img = document.createElement("img");
+                img.src = "YT.png";
+                img.classList.add("from-logo");
+
+                box.appendChild(link);
+                box.appendChild(img);
+
+                document.body.appendChild(box);
+            });
+        }
+
+        displayVideos();
     </script>
 </body>
 </html>
