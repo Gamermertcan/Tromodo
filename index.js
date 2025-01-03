@@ -13,14 +13,18 @@ function search(query, amount) {
       return response.json();
     })
     .then(data => {
+      const results = [];
       data.items.forEach(item => {
         const videoId = item.id.videoId;
         if (videoId) {
-          return { "URL": `https://www.youtube.com/watch?v=${videoId}`, "channel": item.snippet.channelTitle, "title": item.snippet.title};
-        } else {
-          console.error("Video ID Not Found");
+          results.push({
+            "URL": `https://www.youtube.com/watch?v=${videoId}`,
+            "channel": item.snippet.channelTitle,
+            "title": item.snippet.title
+          });
         }
       });
+      return results;
     })
     .catch(error => console.error("Error:", error));
 }
